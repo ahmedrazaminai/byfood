@@ -1,0 +1,40 @@
+.main {
+  display: flex;
+  /* margin: 0.2% 0% 1%; */
+}
+
+.col1 {
+  height: 87vh;
+  width: -50%;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  scroll-snap-align: end;
+}
+
+.col1::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+
+.col2 {
+  align-self: center;
+  padding-left: 20%;
+  vertical-align: center;
+}
+
+.extra-button {
+  display: flex;
+}
+
+.extra-button::content {
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+footer{
+  text-align: center;
+  border-top: 1px solid #000;
+}
