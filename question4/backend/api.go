@@ -69,7 +69,7 @@ func CreateUser(c *gin.Context) {
 	db.Create(&reqBody)
 	db.Commit()
 
-	c.JSON(200, gin.H{"error": false})
+	c.JSON(200, reqBody.ID)
 }
 
 func EditUser(c *gin.Context) {

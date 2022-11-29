@@ -93,7 +93,7 @@ export default function UserForm (props:Props) {
           props.id ?
           <ButtonGroup aria-label="Basic example">
             <Button variant="outline-secondary" onClick={() => {props.setForm("")}}>Cancel</Button>
-            <DeleteModal user={props.user} id={props.id} handleDelete={handleDeleteUser} />
+            <DeleteModal user={user.username} id={props.id} handleDelete={handleDeleteUser} />
           </ButtonGroup>
           :
           <ButtonGroup aria-label="Basic example">
