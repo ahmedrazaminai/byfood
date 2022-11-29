@@ -35,14 +35,11 @@ export default function Home() {
     <div className={"container"}>
       <NavbarTop />
         <Container className='main'>
-          <OverlayTrigger placement="top" overlay={<Tooltip>Scroll Me!</Tooltip>}>
-            <div  className="col1">
-              {/* typescript for loop */}
-              {users?.map((user:User) => (
-                <UsersCard key={user.id} id={user.id} user={user.username} email={user.email} setForm={setForm}/>
-                ))}
-            </div>
-          </OverlayTrigger>
+          <div  className="col1">
+            {users?.map((user:User) => (
+              <UsersCard key={user.id} id={user.id} user={user.username} email={user.email} setForm={setForm}/>
+              ))}
+          </div>
           <div className="col2">
             {form? <UserForm getUsers={handleGetUsers} users={users} setForm={setForm} id={form}/> : <UserForm getUsers={handleGetUsers} users={users} setForm={setForm}/>}
           </div>

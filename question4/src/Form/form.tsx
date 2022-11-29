@@ -9,7 +9,7 @@ import {useRef, useState, useEffect} from 'react';
 
 interface Props{
   id?: any;
-  user?: string;
+  user?: any;
   email?: string;
   password?: string;
   getUsers: () => void;
@@ -39,6 +39,7 @@ export default function UserForm (props:Props) {
       password: passwordRef.current?.value,
     });
     props.getUsers();
+    props.setForm("")
   }
   
   const handleDeleteUser = (e: React.FormEvent) => {
@@ -60,7 +61,11 @@ export default function UserForm (props:Props) {
       username: "",
       password: ""
     });
-  },[props.id, props.users]);
+    emailRef.current!.value = user.email;
+    usernameRef.current!.value = user.username;
+    passwordRef.current!.value = user.password;
+  }, [props.id, user.email]);
+  // },[props.id, props.users]);
 
   // console.log(console.log(user))
   

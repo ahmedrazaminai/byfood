@@ -3,17 +3,31 @@
   /* margin: 0.2% 0% 1%; */
 }
 
+.card {
+  width: 20rem;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  /* margin-left: 4px; */
+  direction: ltr; 
+}
+
 .col1 {
   height: 87vh;
-  width: -50%;
+  direction: rtl;
+  /* width: -50%; */
   overflow-y: scroll;
   scroll-behavior: smooth;
   scroll-snap-align: end;
 }
 
 .col1::-webkit-scrollbar {
-  width: 0px;
+  width: 1px;
   background: transparent;
+  direction: rtl;
+}
+
+.col1::-webkit-scrollbar-thumb {
+  background: #343a40;
 }
 
 
@@ -36,5 +50,5 @@
 
 footer{
   text-align: center;
-  border-top: 1px solid #000;
+  border-top: 1px solid #343a40;
 }
