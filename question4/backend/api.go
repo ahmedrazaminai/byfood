@@ -4,33 +4,34 @@ import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
-	"gorm.io/driver/sqlite"
-	"gorm.io/gorm"
-	// "github.com/mattn/go-sqlite3"
+	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/sqlite"
 )
 
 type User struct {
-	ID       string `json:"id"`
+	ID       string `gorm:"primary_key" json:"id"`
 	Username string `json:"username"`
 	Password string `json:"password"`
 	Email    string `json:"email"`
 }
 
 var Users []User
+var db *gorm.DB
 
-func db_connect() *gorm.DB {
-	db, err := gorm.Open(sqlite.Open("gorm.db"), &gorm.Config{})
+func init() {
+	dinit, err := gorm.Open("sqlite3", "gorm.db")
 	if err != nil {
 		panic("failed to connect database")
 	}
-	return db
+	db = dinit
+
+	db.AutoMigrate(&User{})
 }
 
 func main() {
 	r := gin.Default()
 
 	r.Use(cors.Default())
-	db := db_connect()
 
 	userRoutes := r.Group("/users")
 	{
@@ -41,16 +42,14 @@ func main() {
 		userRoutes.GET("/:id", GetUser)
 	}
 
-	db.AutoMigrate(&User{})
-
 	r.Run() // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
 }
 
 func GetUsers(c *gin.Context) {
-	db := db_connect()
-	db.Table("users").Find(&Users)
+	var users []User
+	db.Find(&users)
 
-	c.JSON(200, Users)
+	c.JSON(200, users)
 }
 
 func CreateUser(c *gin.Context) {
@@ -62,20 +61,17 @@ func CreateUser(c *gin.Context) {
 		})
 		return
 	}
+	reqBody.ID = uuid.New().String()[:8]
 
-	reqBody.ID = uuid.New().String()
-
-	db := db_connect()
 	db.Create(&reqBody)
-	db.Commit()
 
 	c.JSON(200, reqBody.ID)
 }
 
 func EditUser(c *gin.Context) {
-	id := c.Param("id")
-
 	var reqBody User
+	reqBody.ID = c.Param("id")
+
 	if err := c.ShouldBindJSON(&reqBody); err != nil {
 		c.JSON(422, gin.H{
 			"error":   true,
@@ -83,47 +79,48 @@ func EditUser(c *gin.Context) {
 		})
 		return
 	}
+	update := db.Save(&reqBody)
 
-	db := db_connect()
-	new := db.Table("users").Where("id = ?", id).Updates(User{Username: reqBody.Username, Password: reqBody.Password, Email: reqBody.Email})
-	db.Commit()
-
-	if new.Error != nil {
+	if update.Error != nil {
 		c.JSON(404, gin.H{
 			"error":   true,
 			"message": "Invalid User Id",
 		})
 		return
 	}
-
 	c.JSON(200, gin.H{"error": false})
-	return
 }
 
 func DeleteUser(c *gin.Context) {
+	var user User
 	id := c.Param("id")
 
-	db := db_connect()
-	new := db.Table("users").Where("id = ?", id).Delete("Users")
-	db.Commit()
+	db.Where("id = ?", id).Find(&user)
 
-	if new.Error != nil {
+	if user.ID == "" {
 		c.JSON(404, gin.H{
 			"error":   true,
 			"message": "Invalid User Id",
 		})
 		return
 	}
+	db.Where("id = ?", id).Delete(&user)
 
 	c.JSON(200, gin.H{"error": false})
-	return
 }
 
 func GetUser(c *gin.Context) {
+	var user User
 	id := c.Param("id")
 
-	db := db_connect()
-	db.Table("users").Where("id = ?", id).Find(&Users)
+	db.Where("id = ?", id).Find(&user)
 
-	c.JSON(200, Users[0])
+	if user.ID == "" {
+		c.JSON(404, gin.H{
+			"error":   true,
+			"message": "Invalid User Id",
+		})
+		return
+	}
+	c.JSON(200, user)
 }

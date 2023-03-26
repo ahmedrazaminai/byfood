@@ -5,9 +5,9 @@ import (
 )
 
 func ItemCounter(arr []string) string {
-	stringedArray := strings.Join(arr, " ")
 
 	//loops through array and sorts the array by the number of times a word appears in ascending order
+	stringedArray := strings.Join(arr, " ")
 	for i := 0; i < len(arr)-1; i++ {
 		for j := 0; j < len(arr)-1; j++ {
 			if strings.Count(stringedArray, arr[j]) < strings.Count(stringedArray, arr[j+1]) {
