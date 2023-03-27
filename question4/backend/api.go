@@ -1,6 +1,9 @@
 package main
 
 import (
+	"errors"
+	"net/http"
+
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
@@ -19,11 +22,11 @@ var Users []User
 var db *gorm.DB
 
 func init() {
-	dinit, err := gorm.Open("sqlite3", "gorm.db")
+	dbinit, err := gorm.Open("sqlite3", "gorm.db")
 	if err != nil {
 		panic("failed to connect database")
 	}
-	db = dinit
+	db = dbinit
 
 	db.AutoMigrate(&User{})
 }
@@ -49,13 +52,13 @@ func GetUsers(c *gin.Context) {
 	var users []User
 	db.Find(&users)
 
-	c.JSON(200, users)
+	c.JSON(http.StatusOK, users)
 }
 
 func CreateUser(c *gin.Context) {
 	var reqBody User
 	if err := c.ShouldBindJSON(&reqBody); err != nil {
-		c.JSON(422, gin.H{
+		c.JSON(http.StatusBadRequest, gin.H{
 			"error":   true,
 			"message": "Invalid Input",
 		})
@@ -65,62 +68,68 @@ func CreateUser(c *gin.Context) {
 
 	db.Create(&reqBody)
 
-	c.JSON(200, reqBody.ID)
+	c.JSON(http.StatusCreated, reqBody.ID)
 }
 
 func EditUser(c *gin.Context) {
 	var reqBody User
-	reqBody.ID = c.Param("id")
-
 	if err := c.ShouldBindJSON(&reqBody); err != nil {
-		c.JSON(422, gin.H{
+		c.JSON(http.StatusBadRequest, gin.H{
 			"error":   true,
 			"message": "Invalid Input",
 		})
 		return
 	}
-	update := db.Save(&reqBody)
 
-	if update.Error != nil {
-		c.JSON(404, gin.H{
+	user, err := getUserById(c)
+	if err != nil {
+		c.JSON(http.StatusNotFound, gin.H{
 			"error":   true,
-			"message": "Invalid User Id",
+			"message": err.Error(),
 		})
 		return
 	}
-	c.JSON(200, gin.H{"error": false})
+
+	reqBody.ID = user.ID
+	db.Save(&reqBody)
+	c.JSON(http.StatusNoContent, gin.H{"error": false})
 }
 
 func DeleteUser(c *gin.Context) {
-	var user User
-	id := c.Param("id")
-
-	db.Where("id = ?", id).Find(&user)
-
-	if user.ID == "" {
-		c.JSON(404, gin.H{
+	user, err := getUserById(c)
+	if err != nil {
+		c.JSON(http.StatusNotFound, gin.H{
 			"error":   true,
-			"message": "Invalid User Id",
+			"message": err.Error(),
 		})
 		return
 	}
-	db.Where("id = ?", id).Delete(&user)
 
-	c.JSON(200, gin.H{"error": false})
+	db.Where("id = ?", user.ID).Delete(&user)
+	c.JSON(http.StatusNoContent, gin.H{"error": false})
 }
 
 func GetUser(c *gin.Context) {
+	user, err := getUserById(c)
+	if err != nil {
+		c.JSON(http.StatusNotFound, gin.H{
+			"error":   true,
+			"message": err.Error(),
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, user)
+}
+
+func getUserById(c *gin.Context) (User, error) {
 	var user User
 	id := c.Param("id")
 
 	db.Where("id = ?", id).Find(&user)
-
 	if user.ID == "" {
-		c.JSON(404, gin.H{
-			"error":   true,
-			"message": "Invalid User Id",
-		})
-		return
+		return user, errors.New("Invalid User Id")
 	}
-	c.JSON(200, user)
+
+	return user, nil
 }
