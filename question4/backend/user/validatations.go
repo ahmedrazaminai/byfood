@@ -12,7 +12,7 @@ func VerifyId(c *gin.Context) {
 	id := c.Param("id")
 	db := model.Database()
 	db.Where("id = ?", id).Find(&user)
-	if user.ID == "" {
+	if user.Username == "" {
 		c.JSON(http.StatusNotFound, gin.H{
 			"error":   true,
 			"message": "User not found",

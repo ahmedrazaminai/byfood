@@ -4,8 +4,7 @@ import (
 	"api-tut/model"
 	"net/http"
 
-	"github.com/gin-gonic/gin"
-	"github.com/google/uuid"
+	"github.com/gin-gonic/gin" 
 )
 
 func GetUsers(c *gin.Context) {
@@ -27,8 +26,6 @@ func CreateUser(c *gin.Context) {
 		})
 		return
 	}
-
-	reqBody.ID = uuid.New().String()[:8]
 
 	db := model.Database()
 	db.Create(&reqBody)
