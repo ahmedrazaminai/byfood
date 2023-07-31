@@ -21,11 +21,20 @@ I decided to go about solving this by using the sort.Slice function to sort the 
 ```go
 func Sorter(arr []string) []string {
 	sort.Slice(arr, func(i, j int) bool {
-		istring := strings.Count(arr[i], "a")
-		jstring := strings.Count(arr[j], "a")
-
-		return istring > jstring || (istring == jstring && len(arr[i]) > len(arr[j]))
+		return compare(arr[i], arr[j])
 	})
 	return arr
+}
+```
+
+### Compare function
+The compare function is used to compare two strings and return true if the first string should come before the second string in the sorted array. It does this by first comparing the number of 'a's in each string, and if they are equal it compares the length of the strings.
+
+```go
+func compare(i, j string) bool {
+	istring := strings.Count(i, "a")
+	jstring := strings.Count(j, "a")
+
+	return istring > jstring || (istring == jstring && len(i) > len(j))
 }
 ```
