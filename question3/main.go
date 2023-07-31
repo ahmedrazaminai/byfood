@@ -6,6 +6,6 @@ import (
 )
 
 func main() {
-	arr := []string{"blue", "red", "blue", "yellow", "blue", "red", "red"}
-	fmt.Printf(answer.ItemCounter(arr))
+	arr := []string{"apple", "pie", "apple", "red", "red", "red"}
+	fmt.Printf("%s", answer.ItemCounter(arr))
 }
