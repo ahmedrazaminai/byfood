@@ -6,6 +6,7 @@ import (
 )
 
 func main() {
-	arr := []string{"aa", "aaaaa", "dfdjfda", "dddd", "ba", "dkfdkfjdfddf", "skkdkd"}
+	arr := []string{"aaaasd", "a", "aab", "aaabcd", "ef", "cssssssd", "fdz", "kf",
+		"zc", "lklklklklklklklkl", "l"}
 	fmt.Println(answer.Sorter(arr))
 }
