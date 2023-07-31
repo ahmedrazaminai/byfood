@@ -15,5 +15,3 @@ func Database() *gorm.DB {
 
 	return db
 }
-
-var DB *gorm.DB
