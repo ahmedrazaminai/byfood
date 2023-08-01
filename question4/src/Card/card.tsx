@@ -3,7 +3,6 @@ import Card from 'react-bootstrap/Card';
 import React from 'react';
 
 interface Props{
-  // key: string;
   id: string;
   user?: string;
   email?: string;
@@ -19,7 +18,6 @@ function UsersCard(props:Props, key:string) {
 
   return (
     <Card key={key}>
-      {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
       <Card.Body className="d-grid gap-2">
         <Card.Title data-testid="usernamecard">{props.user}</Card.Title>
         <Card.Text data-testid="emailcard">{props.email}</Card.Text>

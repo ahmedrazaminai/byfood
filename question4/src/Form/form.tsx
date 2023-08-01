@@ -65,15 +65,10 @@ export default function UserForm (props:Props) {
     usernameRef.current!.value = user.username;
     passwordRef.current!.value = user.password;
   }, [props.id, user.email]);
-  // },[props.id, props.users]);
-
-  // console.log(console.log(user))
-  
 
   return (
     <Form onSubmit={(e) => {props.id ? handleUser(e, updateUsers) : handleUser(e, createUsers)}} className="justify-content-end">
       <h3>{props.id? `Edit ${user.username}` : "Add new"}</h3>
-      {/* {props.id} */}
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Email</Form.Label>
         <Form.Control ref={emailRef} type="email" placeholder="Enter email" defaultValue={user.email} required/>
@@ -89,9 +84,6 @@ export default function UserForm (props:Props) {
         <Form.Control data-testid="password" ref={passwordRef} type="password" placeholder="Password" defaultValue={user.password} required/>
       </Form.Group>
 
-      {/* <Form.Group className="mb-3" controlId="formBasicCheckbox">
-        <Form.Check type="checkbox" label="Check me out" />
-      </Form.Group> */}
       <div className="d-grid gap-2">
         <Button data-testid="submit" variant="primary" type="submit">{props.id? "Save" : "Submit"}</Button>
         {

@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import Tooltip from 'react-bootstrap/Tooltip';
 import 'react-bootstrap'
 import Container from 'react-bootstrap/Container';
 import UsersCard from './Card/card';
@@ -21,15 +19,11 @@ export default function Home() {
   const [form, setForm] = useState("")
   const [user, setUser] = useState([])
 
-
-  
   const handleGetUsers = async () => await getUsers().then((data) => setUser(data?.reverse()));
   
   useEffect(() => {
     getUsers().then((data) => setUsers(data?.reverse()));
   },[user]);
-  // let users = 
-  // console.log(users)
 
   return (
     <div className={"container"}>
@@ -47,7 +41,6 @@ export default function Home() {
   
       <footer className={"footer"}>
         <span>
-        {/* <hr /> */}
           Ahmed Raza
         </span>
       </footer>

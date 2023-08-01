@@ -1,20 +1,17 @@
 .main {
   display: flex;
-  /* margin: 0.2% 0% 1%; */
 }
 
 .card {
   width: 20rem;
   margin-top: 2%;
   margin-bottom: 2%;
-  /* margin-left: 4px; */
   direction: ltr; 
 }
 
 .col1 {
   height: 87vh;
   direction: rtl;
-  /* width: -50%; */
   overflow-y: scroll;
   scroll-behavior: smooth;
   scroll-snap-align: end;
@@ -29,7 +26,6 @@
 .col1::-webkit-scrollbar-thumb {
   background: #343a40;
 }
-
 
 .col2 {
   align-self: center;
