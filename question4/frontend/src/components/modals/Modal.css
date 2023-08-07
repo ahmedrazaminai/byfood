@@ -1,0 +1,59 @@
+.modal-content {
+  background-color: #121212 !important;
+  color: white !important;
+}
+
+.modal-header {
+  background-color: black;
+  color: white;
+}
+
+.btn-close {
+  background-color: azure !important;
+}
+
+.form-control {
+  background-color: #0b0b0b !important;
+  color: white !important;
+}
+
+.form-control::placeholder {
+  color: rgba(255, 255, 255, 0.546) !important;
+}
+
+hr {
+  border-top: 1px solid #ffffff !important;
+  opacity: 1 !important;
+}
+
+.btn-submit {
+  background-color: #2684fc !important;
+  border: 0 !important;
+}
+
+.btn-submit:hover {
+  background-color: #007bff !important;
+  border: 0 !important;
+}
+
+.btn-secondary {
+  color: white !important;
+  background-color: #1ab07a !important;
+  border: 0px !important;
+}
+
+.btn-secondary:hover {
+  color: white !important;
+  background-color: #0d8e5d !important;
+  border: 0px !important;
+}
+
+.btn-danger {
+  background-color: #ff5f2d !important;
+  border: 0px !important;
+}
+
+.btn-danger:hover {
+  background-color: #f93a00 !important;
+  border: 0px !important;
+}

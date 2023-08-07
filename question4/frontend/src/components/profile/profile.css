@@ -1,0 +1,23 @@
+.profile-layout {
+  background-color: #121212;
+  color: white;
+  padding: 1rem 2rem;
+  min-height: 90vh !important;
+  border-right: 1px solid #121212;
+}
+
+.heading {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.heading2 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.btn-close {
+  background-color: azure !important;
+}

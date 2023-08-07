@@ -1,0 +1,82 @@
+.card {
+  margin: 0.3rem;
+  width: 300px;
+  background-color: #8c7bff !important;
+  border: 1px solid black !important;
+  border-radius: 6% / 17% !important;
+  direction: ltr;
+}
+
+.card-content {
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  text-overflow: clip;
+  white-space: nowrap;
+}
+
+.card-content > * {
+  margin: 0.3rem;
+}
+
+.card-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  align-items: start;
+  margin-top: 1vh;
+}
+
+.scroll {
+  max-width: 340px !important;
+  max-height: 90vh;
+  overflow-y: scroll;
+  overflow-x: visible;
+  scroll-behavior: smooth;
+  scroll-snap-align: start;
+  direction: rtl;
+}
+
+.scroll::-webkit-scrollbar {
+  width: 1px;
+  background: transparent;
+  direction: rtl;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+  background: #343a40;
+}
+
+.more-btn {
+  background-color: black !important;
+  position: absolute;
+  right: -1%;
+  bottom: -1%;
+  border-radius: 15% 0% 0% 0% !important;
+  border: 2px solid black !important;
+  margin-top: -20% !important;
+  margin: 0 !important;
+}
+
+.right-span {
+  position: absolute;
+  right: 9.6%;
+  bottom: -5.5%;
+  border-bottom: 7px solid black;
+  border-right: 7px solid black;
+  padding: 15px;
+  border-radius: 0% 0% 50% 0% !important;
+  margin: 0% !important;
+}
+
+.bottom {
+  position: absolute;
+  bottom: 26.1%;
+  right: -2.3%;
+  border-bottom: 7px solid black;
+  border-right: 7px solid black;
+  padding: 15px;
+  border-radius: 0% 0% 50% 0% !important;
+  margin: 0% !important;
+}
