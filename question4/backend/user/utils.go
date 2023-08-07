@@ -4,14 +4,14 @@ import (
 	"api-tut/model"
 	"net/http"
 
-	"github.com/gin-gonic/gin" 
+	"github.com/gin-gonic/gin"
 )
 
 func GetUsers(c *gin.Context) {
 	var users []model.User
 
 	db := model.Database()
-	db.Find(&users)
+	db.Find(&users).Select("id, username, email, role")
 
 	c.JSON(http.StatusOK, users)
 }
@@ -19,7 +19,7 @@ func GetUsers(c *gin.Context) {
 func CreateUser(c *gin.Context) {
 	reqBody := c.MustGet("reqBody").(model.User)
 
-	if reqBody.Username == "" || reqBody.Password == "" || reqBody.Email == "" {
+	if reqBody.Username == "" || reqBody.Email == "" || reqBody.Role == "" || reqBody.FirstNames == "" || reqBody.LastName == "" {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error":   true,
 			"message": "Invalid Input",
@@ -43,11 +43,17 @@ func EditUser(c *gin.Context) {
 	if reqBody.Username == "" {
 		reqBody.Username = user.Username
 	}
-	if reqBody.Password == "" {
-		reqBody.Password = user.Password
-	}
 	if reqBody.Email == "" {
 		reqBody.Email = user.Email
+	}
+	if reqBody.Role == "" {
+		reqBody.Role = user.Role
+	}
+	if reqBody.FirstNames == "" {
+		reqBody.FirstNames = user.FirstNames
+	}
+	if reqBody.LastName == "" {
+		reqBody.LastName = user.LastName
 	}
 
 	db := model.Database()
