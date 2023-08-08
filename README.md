@@ -32,7 +32,7 @@ go run api.go
 ```
 
 #### - Frontend web app
-Run from the `question4` directory
+Run from the `question4/frontend` directory
 ```bash
 # Frontend dependencies
 npm install
