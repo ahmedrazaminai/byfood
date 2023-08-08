@@ -16,7 +16,7 @@ go test -v
 ```
 
 ### Question 4
-View live demo [here](http://165.227.154.215/).<br>
+View live demo [here](http://217.160.213.51/).<br>
 For the forth question there are two parts, the backend API and the frontend. They both need to be running for the app to work. To setup and run the app, follow the steps below.
 #### - Backend API
 Run from the `question4/backend` directory
