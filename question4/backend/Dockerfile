@@ -4,7 +4,9 @@ WORKDIR /app
 
 COPY . /app
 
-RUN go build -o main .
+RUN chmod +x /app
+
+RUN go build -o api .
 
 EXPOSE 8080
 
